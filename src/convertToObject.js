@@ -12,7 +12,9 @@ function convertToObject(sourceString) {
   declarations.forEach((declaration) => {
     const [key, value] = declaration.split(':').map((part) => part.trim());
 
-    result[key] = value;
+    if (key && value) {
+      result[key] = value;
+    }
   });
 
   return result;
