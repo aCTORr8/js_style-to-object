@@ -10,10 +10,14 @@ function convertToObject(sourceString) {
   const result = {};
 
   declarations.forEach((declaration) => {
-    const [key, value] = declaration.split(':').map((part) => part.trim());
+    const parts = declaration.split(':').map((part) => part.trim());
 
-    if (key && value) {
-      result[key] = value;
+    if (parts.length === 2) {
+      const [key, value] = parts;
+
+      if (key && value) {
+        result[key] = value;
+      }
     }
   });
 
