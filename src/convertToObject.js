@@ -6,18 +6,25 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  const declarations = sourceString.split(';');
+  const declarations = sourceString
+    .split(';')
+    .map((declaration) => declaration.trim())
+    .filter(Boolean);
+
   const result = {};
 
   declarations.forEach((declaration) => {
-    const parts = declaration.split(':').map((part) => part.trim());
+    const parts = declaration.split(':', 2).map((part) => part.trim());
 
     if (parts.length === 2) {
       const [key, value] = parts;
+      let newValue = value;
 
-      if (key && value) {
-        result[key] = value;
+      if (newValue.includes('!important')) {
+        newValue = newValue.replace('!important', '').trim() + ' !important';
       }
+
+      result[key] = newValue;
     }
   });
 
